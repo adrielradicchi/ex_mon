@@ -141,4 +141,15 @@ defmodule ExMon.GameTest do
       assert :player == Game.turn()
     end
   end
+
+  describe "fetch_player/1" do
+    test "returns the player" do
+      player = Player.build("Adriel", :chute, :soco, :cura)
+      computer = Player.build("Robotinik", :chute, :soco, :cura)
+
+      Game.start(computer, player)
+
+      assert player == Game.fetch_player(:player)
+    end
+  end
 end
