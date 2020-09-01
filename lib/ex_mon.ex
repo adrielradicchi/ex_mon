@@ -6,11 +6,6 @@ defmodule ExMon do
   @computer_moves [:move_avg, :move_rnd, :move_heal]
   @raffle_players [:computer, :player]
 
-  def inicia_game() do
-    create_player("Adriel", :chute, :soco, :cura)
-    |> start_game()
-  end
-
   def create_player(name, move_avg, move_rnd, move_heal) do
     Player.build(name, move_avg, move_rnd, move_heal)
   end
