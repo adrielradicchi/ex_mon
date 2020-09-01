@@ -2,8 +2,8 @@ defmodule ExMon.Game do
   alias ExMon.Player
   use Agent
 
-  def start(computer, player) do
-    initial_value = %{computer: computer, player: player, turn: :player, status: :started }
+  def start(turn, computer, player) do
+    initial_value = %{computer: computer, player: player, turn: turn, status: :started }
     Agent.start_link(fn -> initial_value end, name: __MODULE__)
   end
 

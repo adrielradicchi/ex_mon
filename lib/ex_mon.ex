@@ -4,6 +4,12 @@ defmodule ExMon do
 
   @computer_name "Robotinik"
   @computer_moves [:move_avg, :move_rnd, :move_heal]
+  @raffle_players [:computer, :player]
+
+  def inicia_game() do
+    create_player("Adriel", :chute, :soco, :cura)
+    |> start_game()
+  end
 
   def create_player(name, move_avg, move_rnd, move_heal) do
     Player.build(name, move_avg, move_rnd, move_heal)
@@ -12,10 +18,25 @@ defmodule ExMon do
   def start_game(player) do
     @computer_name
     |> create_player(:punch, :kick, :heal)
-    |> Game.start(player)
+    |> raffle_players_starts(player)
+  end
+
+  defp raffle_players_starts(computer, player) do
+    @raffle_players
+    |> Enum.random
+    |> Game.start(computer, player)
 
     Status.print_round_message(Game.info())
+    computer_start()
   end
+
+  defp computer_start() do
+    Game.info()
+    |> computer_choice
+  end
+
+  defp computer_choice(%{turn: :computer, status: :started}), do: computer_move(Game.info())
+  defp computer_choice(_), do: :ok
 
   def make_move(move) do
     Game.info()
@@ -40,6 +61,11 @@ defmodule ExMon do
     end
 
     Status.print_round_message(Game.info())
+  end
+
+  defp computer_move(%{turn: :computer, status: :started}) do
+    {:ok, Enum.random(@computer_moves)}
+    |> do_move
   end
 
   defp computer_move(%{turn: :computer, status: :continue}) do
