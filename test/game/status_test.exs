@@ -6,15 +6,20 @@ defmodule ExMon.Games.StatusTest do
   alias ExMon.{Game,Player}
   alias ExMon.Game.Status
 
+  @raffle_players [:computer, :player]
+
   describe "print_round_message/1" do
 
     setup do
       capture_io(fn ->
         player = Player.build("Adriel", :chute, :soco, :cura)
-
+        computer =
           "Robotinik"
           |> ExMon.create_player(:punch, :kick, :heal)
-          |> Game.start(player)
+
+          @raffle_players
+          |> Enum.random
+          |> Game.start(computer, player)
       end)
 
       :ok
@@ -42,7 +47,8 @@ defmodule ExMon.Games.StatusTest do
 
         end)
 
-      assert message =~ "It's computer turn."
+      assert message =~ "turn."
+      assert message =~ "It's"
     end
 
     test "when game is over" do
@@ -63,10 +69,13 @@ defmodule ExMon.Games.StatusTest do
     setup do
       capture_io(fn ->
         player = Player.build("Adriel", :chute, :soco, :cura)
-
+        computer =
         "Robotinik"
         |> ExMon.create_player(:punch, :kick, :heal)
-        |> Game.start(player)
+
+        @raffle_players
+        |> Enum.random
+        |> Game.start(computer, player)
       end)
       :ok
     end
@@ -79,7 +88,9 @@ defmodule ExMon.Games.StatusTest do
           |> Status.print_move_message(:attack, 50)
         end)
 
-      assert message =~ "The Computer attacked the player dealing"
+      assert message =~ "attacked"
+      assert message =~ "dealing"
+      assert message =~ "The"
     end
 
     test "when computer attack player" do
@@ -91,7 +102,9 @@ defmodule ExMon.Games.StatusTest do
           |> Status.print_move_message(:attack, 50)
         end)
 
-      assert message =~ "The Player attacked the computer dealing"
+      assert message =~ "attacked"
+      assert message =~ "dealing"
+      assert message =~ "The"
     end
 
     test "when player recovere life" do
@@ -124,10 +137,13 @@ defmodule ExMon.Games.StatusTest do
 
       capture_io(fn ->
         player = Player.build("Adriel", :chute, :soco, :cura)
-
+        computer =
         "Robotinik"
         |> ExMon.create_player(:punch, :kick, :heal)
-        |> Game.start(player)
+
+        @raffle_players
+        |> Enum.random
+        |> Game.start(computer, player)
       end)
 
       :ok
