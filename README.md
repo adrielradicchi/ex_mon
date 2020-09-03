@@ -1,21 +1,19 @@
 # ExMon
 
-**TODO: Add description**
+**This project is a battle game between "pokemon"**
 
-## Installation
+For play game is very easy, enough create a player and execute function of start_game and send by reference the player in function
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ex_mon` to your list of dependencies in `mix.exs`:
+### Functions includes in game 
 
-```elixir
-def deps do
-  [
-    {:ex_mon, "~> 0.1.0"}
-  ]
-end
-```
+#### Sort a player or computer to begin start the game
+#### Computer and the player have moves to attack and heal
+#### The attack have two kind moves 
+      1° ramdon attack between 10..35
+      2° average attack between 18..25
+#### The heal move 
+      recover point of life between 18..25
+#### Computer have more chance to heal life when It's less 40 points of life
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ex_mon](https://hexdocs.pm/ex_mon).
 
+###### This project was developed in course about Elixir in Udemy with a teacher Rafael Camarda
